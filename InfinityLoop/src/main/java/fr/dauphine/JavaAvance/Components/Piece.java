@@ -39,11 +39,27 @@ public class Piece {
 	public Piece(int posY, int posX, int typeValue, int orientationValue) {
 		this.posX = posX;
 		this.posY = posY;
-		this.type = PieceType.getTypefromValue(typeValue);
-		this.orientation = type.getOrientation(Orientation.getOrifromValue(orientationValue));
-		this.connectors = type.setConnectorsList(Orientation.getOrifromValue(orientationValue));
+		this.type = PieceType.getTypeFromValue(typeValue);
+		this.orientation = type.getOrientation(Orientation.getOriFromValue(orientationValue));
+		this.connectors = type.setConnectorsList(Orientation.getOriFromValue(orientationValue));
 		this.isFixed = false;
 		this.possibleOrientations = type.getListOfPossibleOri();
+	}
+
+	public static int getIntTypeFromPiece(Piece piece) {
+		switch (piece.getType()) {
+			case ONECONN:
+				return 1;
+			case BAR:
+				return 2;
+			case TTYPE:
+				return 3;
+			case FOURCONN:
+				return 4;
+			case LTYPE:
+				return 5;
+		}
+		return 0;
 	}
 
 	public void setPossibleOrientations(ArrayList<Orientation> possibleOrientations) {
@@ -72,9 +88,7 @@ public class Piece {
 		this.isFixed = isFixed;
 	}
 
-	public boolean isFixed() {
-		return isFixed;
-	}
+	public boolean isFixed() { return isFixed; }
 
 	public int getPosX() { // get j
 		return posX;
@@ -101,7 +115,7 @@ public class Piece {
 	}
 
 	public void setOrientation(int orientationValue) {
-		this.orientation = type.getOrientation(Orientation.getOrifromValue(orientationValue));
+		this.orientation = type.getOrientation(Orientation.getOriFromValue(orientationValue));
 		this.connectors = type.setConnectorsList(this.orientation);
 	}
 
@@ -117,6 +131,7 @@ public class Piece {
 		for (Orientation ori : this.getConnectors()) {
 			if (ori == Orientation.NORTH) {
 				return true;
+
 			}
 		}
 		return false;
