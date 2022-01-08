@@ -1,5 +1,6 @@
 package fr.dauphine.JavaAvance.Main;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.apache.commons.cli.CommandLine;
@@ -61,7 +62,24 @@ public class Main {
             outputFile = cmd.getOptionValue( "o" );
 
             // generate grid and store it to outputFile...
-            //...            
+            //...
+            /*
+            Grid grille = new Grid(height, width);
+            Generator.generateLevel("save.txt",grille);
+            System.out.println(grille);
+            */
+            Grid grid1 = Generator.generateLevel2("../Levels/Level3.txt", 4, 4, 0);
+            System.out.println(grid1);
+            Grid grid2 = Checker.readGrid("../Levels/Level1.txt");
+
+            /*
+            System.out.println(grid);
+            Generator.writeGrid("../Levels/Level2.txt", grid);
+            /*
+            Solver sol = new Solver();
+            sol.solveGrid(grille.getPiece(0,0),Solver.optimization(grille));
+            System.out.println(sol.getSolvedGrid());
+            */
         }
         else if( cmd.hasOption( "s" ) ) {
             System.out.println("Running phineloop solver.");
@@ -93,6 +111,8 @@ public class Main {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "phineloopgen", options );         
             System.exit(1); // exit with error      
+    } catch (FileNotFoundException e) {
+        e.printStackTrace();
     }
         System.exit(0); // exit with success                            
     }

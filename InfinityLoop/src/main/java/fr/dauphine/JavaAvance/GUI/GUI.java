@@ -55,7 +55,6 @@ public class GUI {
 			}
 		};
 		new Thread(task).start();
-
 	}
 
 	/**
@@ -90,7 +89,7 @@ public class GUI {
 	private ImageIcon getImageIcon(Piece p) {
 		//To be implemented
 		
-		
+		return null;
 	}
 
 }

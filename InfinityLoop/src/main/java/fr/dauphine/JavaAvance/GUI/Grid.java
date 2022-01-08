@@ -39,6 +39,10 @@ public class Grid {
 		this.width = width;
 	}
 
+	public Piece[][] getPieces() {
+		return pieces;
+	}
+
 	public int getHeight() {
 		return height;
 	}
@@ -282,7 +286,7 @@ public class Grid {
 	/**
 	 * Check if all pieces have neighbors even if we don't know the orientation
 	 * 
-	 * @param p
+	 * @param
 	 * @return false if a piece has no neighbor
 	 */
 	public boolean allPieceHaveNeighbour() {
@@ -354,8 +358,8 @@ public class Grid {
 	/**
 	 * Check if a piece is connected
 	 * 
-	 * @param line
-	 * @param column
+	 * @param p
+	 * @param ori
 	 * @return true if a connector of a piece is connected
 	 */
 	public boolean isConnected(Piece p, Orientation ori) {
@@ -378,8 +382,7 @@ public class Grid {
 	/**
 	 * Check if a piece is totally connected
 	 * 
-	 * @param line
-	 * @param column
+	 * @param p
 	 * @return true if a connector of a piece is connected
 	 */
 	public boolean isTotallyConnected(Piece p) {
@@ -552,4 +555,29 @@ public class Grid {
 		return s;
 	}
 
+	public int numberOfNeighbours(Piece piece) {
+		int x = piece.getPosX();
+		int y = piece.getPosY();
+		int neighbours = 0;
+		if (y < this.getHeight() - 1 && getPiece(y + 1, x).getType() != PieceType.VOID)
+			neighbours++;
+		if (x < this.getWidth() - 1 && getPiece(y, x + 1).getType() != PieceType.VOID)
+			neighbours++;
+		if (y > 0 && getPiece(y - 1, x).getType() != PieceType.VOID)
+			neighbours++;
+		if (x > 0 && getPiece(y, x - 1).getType() != PieceType.VOID)
+			neighbours++;
+		return neighbours;
+	}
+
+	public boolean allPieceConnected() {
+		for(int i = 0; i < this.height; i++){
+			for(int j = 0; j < this.width; j++){
+				if(!this.isTotallyConnected(this.pieces[i][j])){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 }
