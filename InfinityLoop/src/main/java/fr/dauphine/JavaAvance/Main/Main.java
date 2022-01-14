@@ -50,7 +50,7 @@ public class Main {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "phineloopgen", options );
             System.exit(1);
-        }       
+        }
                 
     try{    
         if( cmd.hasOption( "g" ) ) {
@@ -68,9 +68,9 @@ public class Main {
             Generator.generateLevel("save.txt",grille);
             System.out.println(grille);
             */
-            Grid grid1 = Generator.generateLevel2("../Levels/Level3.txt", 4, 4, 0);
+            Grid grid1 = Generator.generateLevel2("Levels/Level1.txt", 4, 4, 0);
             System.out.println(grid1);
-            Grid grid2 = Checker.readGrid("../Levels/Level1.txt");
+            Grid grid2 = Checker.readGrid("Levels/Level1.txt");
 
             /*
             System.out.println(grid);

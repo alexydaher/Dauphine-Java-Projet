@@ -40,7 +40,7 @@ public class GUI {
 			public void run() {
 
 				try {
-					Grid grid = Checker.buildGrid(inputFile);
+					Grid grid = Checker.readGrid(inputFile);
 					SwingUtilities.invokeLater(new Runnable() {
 						public void run() {
 							GUI window;
