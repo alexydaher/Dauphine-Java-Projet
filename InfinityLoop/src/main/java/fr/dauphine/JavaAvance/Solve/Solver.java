@@ -9,8 +9,7 @@ import java.util.ArrayList;
 
 public class Solver {
 	private Grid outputGrid;
-
-	public 
+	
 
 	public void solveGrid(Piece testPiece, Grid inputGrid) {
 		if(this.outputGrid!=null){
