@@ -47,19 +47,14 @@ public class Piece {
 	}
 
 	public static int getIntTypeFromPiece(Piece piece) {
-		switch (piece.getType()) {
-			case ONECONN:
-				return 1;
-			case BAR:
-				return 2;
-			case TTYPE:
-				return 3;
-			case FOURCONN:
-				return 4;
-			case LTYPE:
-				return 5;
-		}
-		return 0;
+		return switch (piece.getType()) {
+			case ONECONN -> 1;
+			case BAR -> 2;
+			case TTYPE -> 3;
+			case FOURCONN -> 4;
+			case LTYPE -> 5;
+			default -> 0;
+		};
 	}
 
 	public void setPossibleOrientations(ArrayList<Orientation> possibleOrientations) {
@@ -174,12 +169,12 @@ public class Piece {
 
 	@Override
 	public String toString() {
-		String s = "[" + this.getPosY() + ", " + this.getPosX() + "] " + this.getType() + " ";
+		StringBuilder s = new StringBuilder("[" + this.getPosY() + ", " + this.getPosX() + "] " + this.getType() + " ");
 		for (Orientation ori : this.getConnectors()) {
-			s += " " + ori.toString();
+			s.append(" ").append(ori.toString());
 		}
-		s += " Orientation / " + this.getOrientation();
-		return s;
+		s.append(" Orientation / ").append(this.getOrientation());
+		return s.toString();
 	}
 
 }

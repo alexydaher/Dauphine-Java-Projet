@@ -22,16 +22,16 @@ import fr.dauphine.JavaAvance.Solve.Checker;
 public class GUI implements ActionListener {
 
 	private JFrame frame;
-	private int widthOfPiece = 80;
-	private int heightOfPiece = 80;
+	private final int widthOfPiece = 80;
+	private final int heightOfPiece = 80;
 	JButton[][] places;
 	Grid grid;
+
 	/**
-	 * 
-	 * @param inputFile
-	 *            String from IO
-	 * @throws IOException
-	 *             if there is a problem with the gui
+	 *
+	 * @param inputFile String
+	 * @throws NullPointerException
+	 * if there is a problem with the gui
 	 */
 	public static void startGUI(String inputFile) throws NullPointerException {
 		// We have to check that the grid is generated before to launch the GUI
@@ -63,8 +63,8 @@ public class GUI implements ActionListener {
 
 	/**
 	 * Create the application.
-	 * 
-	 * @throws IOException
+	 * @param grid Grid
+	 * @throws MalformedURLException ImageIcon
 	 */
 	public GUI(Grid grid) throws MalformedURLException {
 		this.grid = grid;
@@ -73,9 +73,9 @@ public class GUI implements ActionListener {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
-	 * 
-	 * @throws IOException
+	 *
+	 * @param grid Grid
+	 * @throws MalformedURLException ImageIcon
 	 */
 	private void initialize(Grid grid) throws MalformedURLException {
 		frame = new JFrame("Infinity Loops");
@@ -89,7 +89,6 @@ public class GUI implements ActionListener {
 		for (int line = 0; line < grid.getHeight(); line++) {
 			for (int column = 0; column < grid.getWidth(); column++) {
 				Icon icon = new ImageIcon(this.getImageIcon(grid.getPiece(line, column)).getImage().getScaledInstance(widthOfPiece, heightOfPiece, Image.SCALE_SMOOTH));
-
 				JButton temp = new JButton(icon);
 				panelForButtons.add(temp);
 				temp.addActionListener(this);
@@ -99,28 +98,8 @@ public class GUI implements ActionListener {
 		}
 		frame.add(panelForButtons);
 		frame.setVisible(true);
-		// To implement:
-		// creating frame, labels
-		// Implementing method mouse clicked of interface MouseListener.
 	}
 
-	/*
-	public void actionPerformed(ActionEvent e) {
-		for (int i = 0; i < 9; i++) {
-			if (e.getSource() == places[i]) {
-				if (pl1_chance) {
-					if (places[i]) {
-
-					}
-				} else {
-					if (places[i]) {
-
-					}
-				}
-			}
-		}
-	}
-	*/
 	/**
 	 * Display the correct image from the piece's type and orientation
 	 * 
@@ -130,7 +109,6 @@ public class GUI implements ActionListener {
 	 */
 	private ImageIcon getImageIcon(Piece p) throws MalformedURLException {
 		String image = "";
-		System.out.println(p.getType());
 		switch (p.getType()) {
 			case VOID -> {
 				image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/background.png";
@@ -174,6 +152,10 @@ public class GUI implements ActionListener {
 		return new ImageIcon(image);
 	}
 
+	/**
+	 * turn piece and change it in the gui
+	 * @param e action
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0; i < grid.getHeight(); i++) {

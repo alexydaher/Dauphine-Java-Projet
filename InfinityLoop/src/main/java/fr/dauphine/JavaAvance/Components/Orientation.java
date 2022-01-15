@@ -1,7 +1,5 @@
 package fr.dauphine.JavaAvance.Components;
 
-import java.util.HashMap;
-
 /**
  * 
  * Orientation of the piece enum
@@ -76,11 +74,30 @@ public enum Orientation {
 		};
 	}
 
+	/**
+	 * return value
+	 * @return value
+	 */
 	public int getValue() {
 		return this.value;
 	}
 
+	/**
+	 * turn the piece 90 degrees
+	 * @return Orientation
+	 */
 	abstract public Orientation turn90();
+
+	/**
+	 * return opposed piece coordinates
+	 * @param p piece
+	 * @return list int
+	 */
 	abstract public int[] getOpposedPieceCoordinates(Piece p);
+
+	/**
+	 * return ooposed orientation
+	 * @return orientation
+	 */
 	abstract public Orientation getOpposedOrientation();
 }

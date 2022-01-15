@@ -2,7 +2,6 @@ package fr.dauphine.JavaAvance.Components;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 
@@ -181,10 +180,20 @@ public enum PieceType {
     };
 
     private final int nbConnectors;
-    private PieceType(int nbConnectors) {
+
+    /**
+     * constructor of PieceType
+     * @param nbConnectors int
+     */
+    PieceType(int nbConnectors) {
         this.nbConnectors = nbConnectors;
     }
 
+    /**
+     * return pieceType from value
+     * @param value int
+     * @return PieceType
+     */
     public static PieceType getTypeFromValue(int value) {
         return switch (value) {
             case 0 -> PieceType.VOID;
@@ -197,12 +206,30 @@ public enum PieceType {
         };
     }
 
+    /**
+     * return orientation of piece
+     * @param orientation Orientation
+     * @return Orientation
+     */
     abstract public Orientation getOrientation(Orientation orientation);
 
+    /**
+     * return orientations of connections
+     * @param orientation Orientation
+     * @return list of Orientations
+     */
     abstract public LinkedList<Orientation> setConnectorsList(Orientation orientation);
 
+    /**
+     * return list of possible orientation
+     * @return list of Orientation
+     */
     abstract public ArrayList<Orientation> getListOfPossibleOri();
 
+    /**
+     * return number of connectors
+     * @return number of connectors
+     */
     public int getNbConnectors() {
         return this.nbConnectors;
     }

@@ -21,10 +21,12 @@ public class Generator {
 	private static Grid filledGrid;
 
 	/**
+	 * return generated level grid and write it inside inputGrid
 	 * @param inputGrid
-	 *            file name
-	 * @throws IOException
-	 *             - if an I/O error occurs.
+	 * @param width
+	 * @param height
+	 * @param nbcc
+	 * @return
 	 */
 	public static Grid generateLevel2(String inputGrid, int width, int height, int nbcc) {
 		Random random = new Random();
@@ -96,6 +98,11 @@ public class Generator {
 		return grid;
 	}
 
+	/**
+	 * write grid in file
+	 * @param fileName
+	 * @param inputGrid
+	 */
 	public static void writeGrid(String fileName, Grid inputGrid) {
 		try {
 			FileWriter myWriter = new FileWriter(fileName);

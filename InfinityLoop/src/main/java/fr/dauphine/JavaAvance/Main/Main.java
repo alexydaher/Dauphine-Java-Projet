@@ -75,10 +75,13 @@ public class Main {
             System.out.println(grid1);
             Grid grid2 = Checker.readGrid("Levels/Level1.txt");
             GUI gui = new GUI(grid1);
-            while (!Checker.isSolved(grid1)) {
+            boolean solved = false;
+            while (!solved) {
+                solved = Checker.isSolved(grid1);
             }
             System.out.println("bravo");
-            ;
+            Thread.sleep(1500);
+            System.exit(0);
             /*
             System.out.println(grid);
             Generator.writeGrid("../Levels/Level2.txt", grid);
@@ -118,7 +121,7 @@ public class Main {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "phineloopgen", options );         
             System.exit(1); // exit with error      
-    } catch (FileNotFoundException | MalformedURLException e) {
+    } catch (FileNotFoundException | MalformedURLException | InterruptedException e) {
         e.printStackTrace();
     }
         //System.exit(0); // exit with success
