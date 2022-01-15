@@ -2,6 +2,7 @@ package fr.dauphine.JavaAvance.Main;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -15,6 +16,8 @@ import fr.dauphine.JavaAvance.GUI.Grid;
 import fr.dauphine.JavaAvance.Solve.Checker;
 import fr.dauphine.JavaAvance.Solve.Generator;
 import fr.dauphine.JavaAvance.Solve.Solver;
+
+import javax.swing.*;
 
 /**
  * Parser of the program
@@ -68,10 +71,14 @@ public class Main {
             Generator.generateLevel("save.txt",grille);
             System.out.println(grille);
             */
-            Grid grid1 = Generator.generateLevel2("Levels/Level1.txt", 4, 4, 0);
+            Grid grid1 = Generator.generateLevel2("Levels/Level1.txt", width, height, 0);
             System.out.println(grid1);
             Grid grid2 = Checker.readGrid("Levels/Level1.txt");
-
+            GUI gui = new GUI(grid1);
+            while (!Checker.isSolved(grid1)) {
+            }
+            System.out.println("bravo");
+            ;
             /*
             System.out.println(grid);
             Generator.writeGrid("../Levels/Level2.txt", grid);
@@ -111,10 +118,10 @@ public class Main {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp( "phineloopgen", options );         
             System.exit(1); // exit with error      
-    } catch (FileNotFoundException e) {
+    } catch (FileNotFoundException | MalformedURLException e) {
         e.printStackTrace();
     }
-        System.exit(0); // exit with success                            
+        //System.exit(0); // exit with success
     }
 	
 }

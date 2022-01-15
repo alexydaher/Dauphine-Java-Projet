@@ -14,7 +14,7 @@ public enum Orientation {
 		}
 
 		public int[] getOpposedPieceCoordinates(Piece p) {
-			return new int[]{p.getPosY()-1,p.getPosX()};
+			return new int[]{p.getPosY() - 1, p.getPosX()};
 		}
 
 		public Orientation getOpposedOrientation() {
@@ -26,7 +26,7 @@ public enum Orientation {
 		}
 
 		public int[] getOpposedPieceCoordinates(Piece p) {
-			return new int[]{p.getPosY(),p.getPosX()+1};
+			return new int[]{p.getPosY(), p.getPosX() + 1};
 		}
 
 		public Orientation getOpposedOrientation() {
@@ -38,7 +38,7 @@ public enum Orientation {
 		}
 
 		public int[] getOpposedPieceCoordinates(Piece p) {
-			return new int[]{p.getPosY()+1,p.getPosX()};
+			return new int[]{p.getPosY() + 1, p.getPosX()};
 		}
 
 		public Orientation getOpposedOrientation() {
@@ -50,7 +50,7 @@ public enum Orientation {
 		}
 
 		public int[] getOpposedPieceCoordinates(Piece p) {
-			return new int[]{p.getPosY(),p.getPosX()-1};
+			return new int[]{p.getPosY(), p.getPosX() - 1};
 		}
 
 		public Orientation getOpposedOrientation() {
@@ -67,17 +67,13 @@ public enum Orientation {
 	}
 
 	public static Orientation getOriFromValue(int value) {
-		switch (value) {
-			case 0:
-				return NORTH;
-			case 1:
-				return EAST;
-			case 2:
-				return SOUTH;
-			case 3:
-				return WEST;
-		}
-		return null;
+		return switch (value) {
+			case 0 -> NORTH;
+			case 1 -> EAST;
+			case 2 -> SOUTH;
+			case 3 -> WEST;
+			default -> null;
+		};
 	}
 
 	public int getValue() {

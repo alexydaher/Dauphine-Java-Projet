@@ -27,11 +27,7 @@ public enum EasterEgg {
 			cl = AudioSystem.getClip();
 			// Open audio clip and load samples from the audio input stream.
 			cl.open(audioInputStream);
-		} catch (UnsupportedAudioFileException e) {
-			throw new IllegalArgumentException();
-		} catch (IOException e) {
-			throw new IllegalArgumentException();
-		} catch (LineUnavailableException e) {
+		} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
 			throw new IllegalArgumentException();
 		}
 	}

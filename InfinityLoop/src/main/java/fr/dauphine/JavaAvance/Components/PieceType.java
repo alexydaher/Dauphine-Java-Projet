@@ -16,7 +16,7 @@ public enum PieceType {
         }
 
         public LinkedList<Orientation> setConnectorsList(Orientation orientation) {
-            return null;
+            return new LinkedList<>();
         }
 
         public ArrayList<Orientation> getListOfPossibleOri() {
@@ -31,16 +31,12 @@ public enum PieceType {
         }
 
         public LinkedList<Orientation> setConnectorsList(Orientation orientation) {
-            LinkedList<Orientation> connectors = new LinkedList<Orientation>();
+            LinkedList<Orientation> connectors = new LinkedList<>();
             switch (orientation) {
-                case NORTH:
-                    connectors.add(Orientation.NORTH);
-                case EAST:
-                    connectors.add(Orientation.EAST);
-                case WEST:
-                    connectors.add(Orientation.WEST);
-                case SOUTH:
-                    connectors.add(Orientation.SOUTH);
+                case NORTH -> connectors.add(Orientation.NORTH);
+                case EAST -> connectors.add(Orientation.EAST);
+                case WEST -> connectors.add(Orientation.WEST);
+                case SOUTH -> connectors.add(Orientation.SOUTH);
             }
             return connectors;
         }
@@ -64,14 +60,16 @@ public enum PieceType {
         }
 
         public LinkedList<Orientation> setConnectorsList(Orientation orientation) {
-            LinkedList<Orientation> connectors = new LinkedList<Orientation>();
+            LinkedList<Orientation> connectors = new LinkedList<>();
             switch (orientation) {
-                case NORTH, SOUTH:
+                case NORTH, SOUTH -> {
                     connectors.add(Orientation.NORTH);
                     connectors.add(Orientation.SOUTH);
-                case EAST, WEST:
+                }
+                case EAST, WEST -> {
                     connectors.add(Orientation.EAST);
                     connectors.add(Orientation.WEST);
+                }
             }
             return connectors;
         }
@@ -89,24 +87,28 @@ public enum PieceType {
         }
 
         public LinkedList<Orientation> setConnectorsList(Orientation orientation) {
-            LinkedList<Orientation> connectors = new LinkedList<Orientation>();
+            LinkedList<Orientation> connectors = new LinkedList<>();
             switch (orientation) {
-                case NORTH:
+                case NORTH -> {
                     connectors.add(Orientation.NORTH);
                     connectors.add(Orientation.WEST);
                     connectors.add(Orientation.EAST);
-                case EAST:
+                }
+                case EAST -> {
                     connectors.add(Orientation.NORTH);
                     connectors.add(Orientation.EAST);
                     connectors.add(Orientation.SOUTH);
-                case SOUTH:
+                }
+                case SOUTH -> {
                     connectors.add(Orientation.EAST);
                     connectors.add(Orientation.SOUTH);
                     connectors.add(Orientation.WEST);
-                case WEST:
+                }
+                case WEST -> {
                     connectors.add(Orientation.NORTH);
                     connectors.add(Orientation.WEST);
                     connectors.add(Orientation.SOUTH);
+                }
             }
             return connectors;
         }
@@ -126,7 +128,12 @@ public enum PieceType {
         }
 
         public LinkedList<Orientation> setConnectorsList(Orientation orientation) {
-            return null;
+            LinkedList<Orientation> connectors = new LinkedList<>();
+            connectors.add(Orientation.NORTH);
+            connectors.add(Orientation.EAST);
+            connectors.add(Orientation.SOUTH);
+            connectors.add(Orientation.WEST);
+            return connectors;
         }
 
         public ArrayList<Orientation> getListOfPossibleOri() {
@@ -141,20 +148,24 @@ public enum PieceType {
         }
 
         public LinkedList<Orientation> setConnectorsList(Orientation orientation) {
-            LinkedList<Orientation> connectors = new LinkedList<Orientation>();
+            LinkedList<Orientation> connectors = new LinkedList<>();
             switch (orientation) {
-                case NORTH:
+                case NORTH -> {
                     connectors.add(Orientation.NORTH);
                     connectors.add(Orientation.EAST);
-                case EAST:
+                }
+                case EAST -> {
                     connectors.add(Orientation.EAST);
                     connectors.add(Orientation.SOUTH);
-                case SOUTH:
+                }
+                case SOUTH -> {
                     connectors.add(Orientation.SOUTH);
                     connectors.add(Orientation.WEST);
-                case WEST:
+                }
+                case WEST -> {
                     connectors.add(Orientation.WEST);
                     connectors.add(Orientation.NORTH);
+                }
             }
             return connectors;
         }
@@ -169,28 +180,21 @@ public enum PieceType {
         }
     };
 
-    private int nbConnectors;
+    private final int nbConnectors;
     private PieceType(int nbConnectors) {
         this.nbConnectors = nbConnectors;
     }
 
     public static PieceType getTypeFromValue(int value) {
-        switch(value){
-            case 0:
-                return PieceType.VOID;
-            case 1:
-                return PieceType.ONECONN;
-            case 2:
-                return PieceType.BAR;
-            case 3:
-                return PieceType.TTYPE;
-            case 4:
-                return PieceType.FOURCONN;
-            case 5:
-                return PieceType.LTYPE;
-            default:
-                throw new IllegalStateException("Unexpected value: " + value);
-        }
+        return switch (value) {
+            case 0 -> PieceType.VOID;
+            case 1 -> PieceType.ONECONN;
+            case 2 -> PieceType.BAR;
+            case 3 -> PieceType.TTYPE;
+            case 4 -> PieceType.FOURCONN;
+            case 5 -> PieceType.LTYPE;
+            default -> throw new IllegalStateException("Unexpected value: " + value);
+        };
     }
 
     abstract public Orientation getOrientation(Orientation orientation);

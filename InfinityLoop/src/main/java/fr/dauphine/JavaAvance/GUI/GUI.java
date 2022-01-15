@@ -1,16 +1,13 @@
 package fr.dauphine.JavaAvance.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Objects;
 import java.util.Random;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 
 import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
@@ -22,10 +19,13 @@ import fr.dauphine.JavaAvance.Solve.Checker;
  * 
  *
  */
-public class GUI {
+public class GUI implements ActionListener {
 
 	private JFrame frame;
-
+	private int widthOfPiece = 80;
+	private int heightOfPiece = 80;
+	JButton[][] places;
+	Grid grid;
 	/**
 	 * 
 	 * @param inputFile
@@ -43,8 +43,12 @@ public class GUI {
 					Grid grid = Checker.readGrid(inputFile);
 					SwingUtilities.invokeLater(new Runnable() {
 						public void run() {
-							GUI window;
-							window = new GUI(grid);
+							GUI window = null;
+							try {
+								window = new GUI(grid);
+							} catch (MalformedURLException e) {
+								e.printStackTrace();
+							}
 							window.frame.setVisible(true);
 						}
 					});
@@ -62,9 +66,10 @@ public class GUI {
 	 * 
 	 * @throws IOException
 	 */
-	public GUI(Grid grid) {
-
+	public GUI(Grid grid) throws MalformedURLException {
+		this.grid = grid;
 		initialize(grid);
+
 	}
 
 	/**
@@ -72,13 +77,50 @@ public class GUI {
 	 * 
 	 * @throws IOException
 	 */
-	private void initialize(Grid grid) {
-		
+	private void initialize(Grid grid) throws MalformedURLException {
+		frame = new JFrame("Infinity Loops");
+		frame.setVisible(true);
+		frame.setSize(grid.getWidth() * widthOfPiece,grid.getHeight() * heightOfPiece);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		places = new JButton[grid.getHeight()][grid.getWidth()];
+		JPanel panelForButtons = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		panelForButtons.setLayout(new GridLayout(grid.getHeight(), grid.getWidth()));
+
+		for (int line = 0; line < grid.getHeight(); line++) {
+			for (int column = 0; column < grid.getWidth(); column++) {
+				Icon icon = new ImageIcon(this.getImageIcon(grid.getPiece(line, column)).getImage().getScaledInstance(widthOfPiece, heightOfPiece, Image.SCALE_SMOOTH));
+
+				JButton temp = new JButton(icon);
+				panelForButtons.add(temp);
+				temp.addActionListener(this);
+				places[line][column] = temp;
+
+			}
+		}
+		frame.add(panelForButtons);
+		frame.setVisible(true);
 		// To implement:
 		// creating frame, labels
 		// Implementing method mouse clicked of interface MouseListener.
 	}
 
+	/*
+	public void actionPerformed(ActionEvent e) {
+		for (int i = 0; i < 9; i++) {
+			if (e.getSource() == places[i]) {
+				if (pl1_chance) {
+					if (places[i]) {
+
+					}
+				} else {
+					if (places[i]) {
+
+					}
+				}
+			}
+		}
+	}
+	*/
 	/**
 	 * Display the correct image from the piece's type and orientation
 	 * 
@@ -86,10 +128,67 @@ public class GUI {
 	 *            the piece
 	 * @return an image icon
 	 */
-	private ImageIcon getImageIcon(Piece p) {
-		//To be implemented
-		
-		return null;
+	private ImageIcon getImageIcon(Piece p) throws MalformedURLException {
+		String image = "";
+		System.out.println(p.getType());
+		switch (p.getType()) {
+			case VOID -> {
+				image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/background.png";
+			}
+			case ONECONN -> {
+				switch (p.getOrientation()) {
+					case NORTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/1.png";
+					case EAST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/2.png";
+					case SOUTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/3.png";
+					case WEST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/4.png";
+				}
+			}
+			case BAR -> {
+				switch (p.getOrientation()) {
+					case NORTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/5.png";
+					case EAST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/6.png";
+				}
+			}
+			case TTYPE -> {
+				switch (p.getOrientation()) {
+					case NORTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/7.png";
+					case EAST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/8.png";
+					case SOUTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/9.png";
+					case WEST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/10.png";
+				}
+			}
+			case FOURCONN -> {
+				if (p.getOrientation() == Orientation.NORTH) {
+					image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/11.png";
+				}
+			}
+			case LTYPE -> {
+				switch (p.getOrientation()) {
+					case NORTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/12.png";
+					case EAST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/13.png";
+					case SOUTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/14.png";
+					case WEST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/15.png";
+				}
+			}
+		}
+		return new ImageIcon(image);
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		for (int i = 0; i < grid.getHeight(); i++) {
+			for (int j = 0; j < grid.getWidth(); j++) {
+				if (e.getSource() == places[i][j]) {
+					grid.getPiece(i, j).turn();
+					try {
+						Icon icon = new ImageIcon(this.getImageIcon(grid.getPiece(i, j)).getImage().getScaledInstance(widthOfPiece, heightOfPiece, Image.SCALE_SMOOTH));
+						places[i][j].setIcon(icon);
+					} catch (MalformedURLException ex) {
+						ex.printStackTrace();
+					}
+				}
+			}
+		}
+		frame.repaint();
+	}
 }

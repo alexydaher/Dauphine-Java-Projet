@@ -32,6 +32,7 @@ public class Solver {
 			}
 		}
 	}
+
 	public Grid getSolvedGrid(){ return this.outputGrid; }
 
 	public static Grid optimization(Grid inputGrid){
