@@ -1,6 +1,7 @@
 package fr.dauphine.JavaAvance.GUI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
@@ -21,6 +22,19 @@ public class Grid {
 		this.width = width;
 		this.height = height;
 		pieces = new Piece[height][width];
+	}
+
+	public Grid(Grid grid) {
+		this.width = grid.width;
+		this.height = grid.height;
+		pieces = new Piece[height][width];
+		for (int i = 0; i < grid.pieces.length; i++) {
+			for (int j = 0; j < grid.pieces[i].length; j++) {
+				Piece piece = grid.pieces[i][j];
+				pieces[i][j] = new Piece(piece.getPosX(), piece.getPosY(), piece.getType(), piece.getOrientation());
+			}
+		}
+		this.nbcc = grid.nbcc;
 	}
 
 	// Constructor with specified number of connected component

@@ -45,29 +45,27 @@ public class Checker {
      * @param grid
      * @return
      */
-    public static boolean isSolved(Grid grid) {
+
+
+    synchronized public static boolean isSolved(Grid grid) {
         for(int i = 0; i < grid.getHeight(); i++) {
             for (int j = 0; j < grid.getWidth(); j++) {
                 for (Orientation orientation : grid.getPiece(i, j).getConnectors()) {
                     switch (orientation) {
                         case NORTH -> {
                             if (i == 0 || !grid.getPiece(i - 1, j).getConnectors().contains(orientation.getOpposedOrientation())) {
-                                System.out.println(i + " " + j);
                                 return false;
                             }
                         } case EAST -> {
                             if (j == grid.getWidth() - 1 || !grid.getPiece(i, j + 1).getConnectors().contains(orientation.getOpposedOrientation())) {
-                                System.out.println(i + " " + j);
                                 return false;
                             }
                         } case SOUTH -> {
                             if (i == grid.getHeight() - 1 || !grid.getPiece(i + 1, j).getConnectors().contains(orientation.getOpposedOrientation())) {
-                                System.out.println(i + " " + j);
                                 return false;
                             }
                         } case WEST -> {
                             if (j == 0 || !grid.getPiece(i, j - 1).getConnectors().contains(orientation.getOpposedOrientation())) {
-                                System.out.println(i + " " + j);
                                 return false;
                             }
                         }

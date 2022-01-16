@@ -72,15 +72,19 @@ public class Main {
             System.out.println(grille);
             */
             Grid grid1 = Generator.generateLevel2("Levels/Level1.txt", width, height, 0);
-            System.out.println(grid1);
             Grid grid2 = Checker.readGrid("Levels/Level1.txt");
-            GUI gui = new GUI(grid1);
+
+            //Grid solve = Solver.solveGrid2(0, 0, grid1);
+            GUI gui1 = new GUI(grid1);
+            //GUI gui2 = new GUI(solve);
             boolean solved = false;
+
             while (!solved) {
                 solved = Checker.isSolved(grid1);
             }
+
             System.out.println("bravo");
-            Thread.sleep(1500);
+            Thread.sleep(200000);
             System.exit(0);
             /*
             System.out.println(grid);

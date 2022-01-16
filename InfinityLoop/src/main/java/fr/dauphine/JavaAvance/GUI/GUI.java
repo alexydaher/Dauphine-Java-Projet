@@ -4,14 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Objects;
-import java.util.Random;
 import javax.swing.*;
 
 import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
-import fr.dauphine.JavaAvance.Components.PieceType;
 import fr.dauphine.JavaAvance.Solve.Checker;
 
 /**
@@ -165,6 +161,9 @@ public class GUI implements ActionListener {
 					try {
 						Icon icon = new ImageIcon(this.getImageIcon(grid.getPiece(i, j)).getImage().getScaledInstance(widthOfPiece, heightOfPiece, Image.SCALE_SMOOTH));
 						places[i][j].setIcon(icon);
+						if (Checker.isSolved(grid)) {
+							JOptionPane.showMessageDialog(null, "Bravo");
+						}
 					} catch (MalformedURLException ex) {
 						ex.printStackTrace();
 					}
