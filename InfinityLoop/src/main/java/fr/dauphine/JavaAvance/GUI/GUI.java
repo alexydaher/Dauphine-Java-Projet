@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
+import fr.dauphine.JavaAvance.Components.PieceType;
 import fr.dauphine.JavaAvance.Solve.Checker;
 
 /**
@@ -64,6 +65,7 @@ public class GUI implements ActionListener {
 	 */
 	public GUI(Grid grid) throws MalformedURLException {
 		this.grid = grid;
+		frame = new JFrame("Infinity Loops");
 		initialize(grid);
 
 	}
@@ -74,7 +76,6 @@ public class GUI implements ActionListener {
 	 * @throws MalformedURLException ImageIcon
 	 */
 	private void initialize(Grid grid) throws MalformedURLException {
-		frame = new JFrame("Infinity Loops");
 		frame.setVisible(true);
 		frame.setSize(grid.getWidth() * widthOfPiece,grid.getHeight() * heightOfPiece);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,6 +97,62 @@ public class GUI implements ActionListener {
 		frame.setVisible(true);
 	}
 
+	public static Grid solve( Grid grid) throws MalformedURLException {
+		GUI gui = new GUI(grid);
+		return gui.solveGrid(0, 0, grid);
+	}
+
+	public Grid solveGrid(int i, int j, Grid grid) throws MalformedURLException {
+		boolean voidType = false;
+		if (Checker.isSolved(grid)) {
+			return grid;
+		}
+		if (i == grid.getHeight() || j == grid.getWidth()) {
+			return null;
+		}
+		Grid grid1 = new Grid(grid);
+		Grid grid2 = new Grid(grid);
+		Grid grid3 = new Grid(grid);
+		Grid grid4 = new Grid(grid);
+		if (grid.getPiece(i, j).getType() != PieceType.VOID) {
+			grid2.getPiece(i, j).turn();
+			grid3.getPiece(i, j).turn();
+			grid3.getPiece(i, j).turn();
+			grid4.getPiece(i, j).turn();
+			grid4.getPiece(i, j).turn();
+			grid4.getPiece(i, j).turn();
+		} else {
+			voidType = true;
+		}
+
+		if (j == grid.getWidth() - 1) {
+			j = 0;
+			i += 1;
+		} else {
+			j += 1;
+		}
+		initialize(grid1);
+		if (voidType) {
+			return solveGrid(i, j, grid1);
+		}
+		Grid grid1New = solveGrid(i, j, grid1);
+		if (grid1New != null) {
+			return grid1New;
+		}
+		initialize(grid2);
+		Grid grid2New = solveGrid(i, j, grid2);
+		if (grid2New != null) {
+			return grid2New;
+		}
+		initialize(grid3);
+		Grid grid3New = solveGrid(i, j, grid3);
+		if (grid3New != null) {
+			return grid3New;
+		}
+		initialize(grid4);
+		return solveGrid(i, j, grid4);
+	}
+
 	/**
 	 * Display the correct image from the piece's type and orientation
 	 * 
@@ -107,41 +164,41 @@ public class GUI implements ActionListener {
 		String image = "";
 		switch (p.getType()) {
 			case VOID -> {
-				image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/background.png";
+				image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/background.png";
 			}
 			case ONECONN -> {
 				switch (p.getOrientation()) {
-					case NORTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/1.png";
-					case EAST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/2.png";
-					case SOUTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/3.png";
-					case WEST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/4.png";
+					case NORTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/1.png";
+					case EAST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/2.png";
+					case SOUTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/3.png";
+					case WEST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/4.png";
 				}
 			}
 			case BAR -> {
 				switch (p.getOrientation()) {
-					case NORTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/5.png";
-					case EAST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/6.png";
+					case NORTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/5.png";
+					case EAST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/6.png";
 				}
 			}
 			case TTYPE -> {
 				switch (p.getOrientation()) {
-					case NORTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/7.png";
-					case EAST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/8.png";
-					case SOUTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/9.png";
-					case WEST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/10.png";
+					case NORTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/7.png";
+					case EAST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/8.png";
+					case SOUTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/9.png";
+					case WEST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/10.png";
 				}
 			}
 			case FOURCONN -> {
 				if (p.getOrientation() == Orientation.NORTH) {
-					image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/11.png";
+					image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/11.png";
 				}
 			}
 			case LTYPE -> {
 				switch (p.getOrientation()) {
-					case NORTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/12.png";
-					case EAST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/13.png";
-					case SOUTH -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/14.png";
-					case WEST -> image = "InfinityLoop/src/main/resources/fr/dauphine/JavaAvance/icons/io/15.png";
+					case NORTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/12.png";
+					case EAST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/13.png";
+					case SOUTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/14.png";
+					case WEST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/15.png";
 				}
 			}
 		}

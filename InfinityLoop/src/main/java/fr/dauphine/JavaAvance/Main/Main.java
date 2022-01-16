@@ -71,20 +71,22 @@ public class Main {
             Generator.generateLevel("save.txt",grille);
             System.out.println(grille);
             */
-            Grid grid1 = Generator.generateLevel2("Levels/Level1.txt", width, height, 0);
-            Grid grid2 = Checker.readGrid("Levels/Level1.txt");
+            Grid grid1 = Generator.generateLevel2("../Levels/Level1.txt", width, height, 0);
+            Grid grid2 = Checker.readGrid("../Levels/Level1.txt");
 
             //Grid solve = Solver.solveGrid2(0, 0, grid1);
-            GUI gui1 = new GUI(grid1);
-            //GUI gui2 = new GUI(solve);
+            GUI gui1 = new GUI(Solver.solveGrid(0, 0, grid1));
+            GUI gui2 = new GUI(grid2);
+
+
             boolean solved = false;
 
             while (!solved) {
-                solved = Checker.isSolved(grid1);
+                solved = Checker.isSolved(grid2);
             }
 
             System.out.println("bravo");
-            Thread.sleep(200000);
+            Thread.sleep(2000);
             System.exit(0);
             /*
             System.out.println(grid);
