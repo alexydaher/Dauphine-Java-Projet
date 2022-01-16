@@ -66,36 +66,14 @@ public class Main {
 
             // generate grid and store it to outputFile...
             //...
-            /*
-            Grid grille = new Grid(height, width);
-            Generator.generateLevel("save.txt",grille);
-            System.out.println(grille);
-            */
-            Grid grid1 = Generator.generateLevel2("../Levels/Level1.txt", width, height, 0);
-            Grid grid2 = Checker.readGrid("../Levels/Level1.txt");
-
-            //Grid solve = Solver.solveGrid2(0, 0, grid1);
-            GUI gui1 = new GUI(Solver.solveGrid(0, 0, grid1));
-            GUI gui2 = new GUI(grid2);
-
+            Grid grid1 = Generator.generateLevel("../Levels/" + outputFile, width, height, 0);
+            GUI gui1 = new GUI(grid1);
 
             boolean solved = false;
-
             while (!solved) {
-                solved = Checker.isSolved(grid2);
+                solved = Checker.isSolved(grid1);
             }
-
-            System.out.println("bravo");
             Thread.sleep(2000);
-            System.exit(0);
-            /*
-            System.out.println(grid);
-            Generator.writeGrid("../Levels/Level2.txt", grid);
-            /*
-            Solver sol = new Solver();
-            sol.solveGrid(grille.getPiece(0,0),Solver.optimization(grille));
-            System.out.println(sol.getSolvedGrid());
-            */
         }
         else if( cmd.hasOption( "s" ) ) {
             System.out.println("Running phineloop solver.");
@@ -106,7 +84,11 @@ public class Main {
         
             // load grid from inputFile, solve it and store result to outputFile...
             // ...
-            
+            Grid grid = Checker.readGrid("../Levels/" + inputFile);
+            if (GUI.solve(grid) != null) {
+                solved = true;
+            }
+            Generator.writeGrid("../Levels/" + outputFile, grid);
             System.out.println("SOLVED: " + solved);            
         }
         
@@ -117,6 +99,10 @@ public class Main {
             
             // load grid from inputFile and check if it is solved... 
             //...
+            Grid grid = Checker.readGrid("../Levels/" + inputFile);
+            if (Checker.isSolved(grid)) {
+                solved = true;
+            }
             System.out.println("SOLVED: " + solved);           
         }
         else {
@@ -130,7 +116,7 @@ public class Main {
     } catch (FileNotFoundException | MalformedURLException | InterruptedException e) {
         e.printStackTrace();
     }
-        //System.exit(0); // exit with success
+        System.exit(0); // exit with success
     }
 	
 }

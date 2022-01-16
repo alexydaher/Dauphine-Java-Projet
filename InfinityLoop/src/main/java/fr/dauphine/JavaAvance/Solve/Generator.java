@@ -1,15 +1,19 @@
 package fr.dauphine.JavaAvance.Solve;
 
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 
 import fr.dauphine.JavaAvance.Components.Orientation;
 import fr.dauphine.JavaAvance.Components.Piece;
 import fr.dauphine.JavaAvance.Components.PieceType;
 import fr.dauphine.JavaAvance.GUI.Grid;
+import org.codehaus.plexus.util.NioFiles;
 
 /**
  * Generate a solution, number of connexe composant is not finished
@@ -28,7 +32,7 @@ public class Generator {
 	 * @param nbcc
 	 * @return
 	 */
-	public static Grid generateLevel2(String inputGrid, int width, int height, int nbcc) {
+	public static Grid generateLevel(String inputGrid, int width, int height, int nbcc) {
 		Random random = new Random();
 		Grid grid = new Grid(width, height, nbcc);
 		int nbc = 0;
@@ -105,7 +109,8 @@ public class Generator {
 	 */
 	public static void writeGrid(String fileName, Grid inputGrid) {
 		try {
-			FileWriter myWriter = new FileWriter(fileName);
+			FileOutputStream fileOutputStream = new FileOutputStream(fileName);
+			FileWriter myWriter = new FileWriter(fileName, false);
 			myWriter.write(inputGrid.getWidth()+"\n");
 			myWriter.write(inputGrid.getHeight()+"\n");
 			Piece[][] pieces = inputGrid.getPieces();

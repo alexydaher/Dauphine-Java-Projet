@@ -55,6 +55,7 @@ public class Solver {
 		}
 		return solveGrid(i, j, grid4);
 	}
+
 	public static void main(String[] args) {
 
 		// To be implemented
