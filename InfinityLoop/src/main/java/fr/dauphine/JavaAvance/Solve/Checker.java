@@ -24,16 +24,18 @@ public class Checker {
     public static Grid readGrid(String inputFile) throws FileNotFoundException {
         BufferedReader fr = new BufferedReader(new FileReader(inputFile));
         try {
-            Grid grille = new Grid(Integer.parseInt(fr.readLine()),Integer.parseInt(fr.readLine()));
-            for(int i = 0; i < grille.getHeight(); i++){
-                for(int j = 0; j < grille.getWidth(); j++){
-                    String[] str = fr.readLine().split(" ");
-                    if(str.length != 0){
-                        grille.setPiece(i,j,new Piece(i,j, PieceType.getTypeFromValue(Integer.parseInt(str[0])), Orientation.getOriFromValue(Integer.parseInt(str[1]))));
+            Grid grid = new Grid(Integer.parseInt(fr.readLine()),Integer.parseInt(fr.readLine()));
+            for(int i = 0; i < grid.getHeight(); i++){
+                for(int j = 0; j < grid.getWidth(); j++){
+                    String[] piece = fr.readLine().split(" ");
+                    if(piece.length != 0){
+                        PieceType pieceType = PieceType.getTypeFromValue(Integer.parseInt(piece[0]));
+                        Orientation orientation = Orientation.getOriFromValue(Integer.parseInt(piece[1]));
+                        grid.setPiece(i,j,new Piece(i,j, PieceType.getTypeFromValue(Integer.parseInt(piece[0])), Orientation.getOriFromValue(Integer.parseInt(piece[1]))));
                     }
                 }
             }
-            return grille;
+            return grid;
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,8 +47,6 @@ public class Checker {
      * @param grid
      * @return
      */
-
-
     synchronized public static boolean isSolved(Grid grid) {
         for(int i = 0; i < grid.getHeight(); i++) {
             for (int j = 0; j < grid.getWidth(); j++) {

@@ -161,44 +161,44 @@ public class GUI implements ActionListener {
 	 * @return an image icon
 	 */
 	private ImageIcon getImageIcon(Piece p) throws MalformedURLException {
-		String image = "";
+		String image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/";
 		switch (p.getType()) {
 			case VOID -> {
-				image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/background.png";
+				image += "background.png";
 			}
 			case ONECONN -> {
 				switch (p.getOrientation()) {
-					case NORTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/1.png";
-					case EAST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/2.png";
-					case SOUTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/3.png";
-					case WEST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/4.png";
+					case NORTH -> image += "1.png";
+					case EAST -> image += "2.png";
+					case SOUTH -> image += "3.png";
+					case WEST -> image += "4.png";
 				}
 			}
 			case BAR -> {
 				switch (p.getOrientation()) {
-					case NORTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/5.png";
-					case EAST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/6.png";
+					case NORTH -> image += "5.png";
+					case EAST -> image += "6.png";
 				}
 			}
 			case TTYPE -> {
 				switch (p.getOrientation()) {
-					case NORTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/7.png";
-					case EAST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/8.png";
-					case SOUTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/9.png";
-					case WEST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/10.png";
+					case NORTH -> image += "7.png";
+					case EAST -> image += "8.png";
+					case SOUTH -> image += "9.png";
+					case WEST -> image += "10.png";
 				}
 			}
 			case FOURCONN -> {
 				if (p.getOrientation() == Orientation.NORTH) {
-					image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/11.png";
+					image += "11.png";
 				}
 			}
 			case LTYPE -> {
 				switch (p.getOrientation()) {
-					case NORTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/12.png";
-					case EAST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/13.png";
-					case SOUTH -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/14.png";
-					case WEST -> image = "src/main/resources/fr/dauphine/JavaAvance/icons/io/15.png";
+					case NORTH -> image += "12.png";
+					case EAST -> image += "13.png";
+					case SOUTH -> image += "14.png";
+					case WEST -> image += "15.png";
 				}
 			}
 		}

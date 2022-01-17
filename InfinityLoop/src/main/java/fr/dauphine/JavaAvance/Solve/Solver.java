@@ -10,7 +10,23 @@ import java.util.ArrayList;
 public class Solver {
 	private Grid outputGrid;
 
-	public static Grid solveGrid(int i, int j, Grid grid) {
+	/**
+	 * function that solves the grid. return null if unsolvable
+	 * @param grid
+	 * @return
+	 */
+	public static Grid solveGrid(Grid grid) {
+		return aux(0, 0, grid);
+	}
+
+	/**
+	 * auxiliary function for solveGrid
+	 * @param i
+	 * @param j
+	 * @param grid
+	 * @return
+	 */
+	public static Grid aux(int i, int j, Grid grid) {
 		boolean voidType = false;
 		if (Checker.isSolved(grid)) {
 			return grid;
@@ -39,21 +55,21 @@ public class Solver {
 			j += 1;
 		}
 		if (voidType) {
-			return solveGrid(i, j, grid1);
+			return aux(i, j, grid1);
 		}
-		Grid grid1New = solveGrid(i, j, grid1);
+		Grid grid1New = aux(i, j, grid1);
 		if (grid1New != null) {
 			return grid1New;
 		}
-		Grid grid2New = solveGrid(i, j, grid2);
+		Grid grid2New = aux(i, j, grid2);
 		if (grid2New != null) {
 			return grid2New;
 		}
-		Grid grid3New = solveGrid(i, j, grid3);
+		Grid grid3New = aux(i, j, grid3);
 		if (grid3New != null) {
 			return grid3New;
 		}
-		return solveGrid(i, j, grid4);
+		return aux(i, j, grid4);
 	}
 
 	public static void main(String[] args) {

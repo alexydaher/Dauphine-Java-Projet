@@ -67,13 +67,12 @@ public class Main {
             // generate grid and store it to outputFile...
             //...
             Grid grid1 = Generator.generateLevel("../Levels/" + outputFile, width, height, 0);
-            GUI gui1 = new GUI(grid1);
-
+            new GUI(grid1);
             boolean solved = false;
             while (!solved) {
                 solved = Checker.isSolved(grid1);
             }
-            Thread.sleep(2000);
+            Thread.sleep(5000);
         }
         else if( cmd.hasOption( "s" ) ) {
             System.out.println("Running phineloop solver.");
@@ -88,8 +87,9 @@ public class Main {
             if (GUI.solve(grid) != null) {
                 solved = true;
             }
+            assert grid != null;
             Generator.writeGrid("../Levels/" + outputFile, grid);
-            System.out.println("SOLVED: " + solved);            
+            System.out.println("SOLVED: " + solved);
         }
         
         else if( cmd.hasOption( "c" )) {
@@ -100,9 +100,8 @@ public class Main {
             // load grid from inputFile and check if it is solved... 
             //...
             Grid grid = Checker.readGrid("../Levels/" + inputFile);
-            if (Checker.isSolved(grid)) {
-                solved = true;
-            }
+            assert grid != null;
+            solved = Checker.isSolved(grid);
             System.out.println("SOLVED: " + solved);           
         }
         else {

@@ -1,6 +1,7 @@
 package fr.dauphine.JavaAvance.Solve;
 
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,13 +27,13 @@ public class Generator {
 
 	/**
 	 * return generated level grid and write it inside inputGrid
-	 * @param inputGrid
+	 * @param outputGrid
 	 * @param width
 	 * @param height
 	 * @param nbcc
 	 * @return
 	 */
-	public static Grid generateLevel(String inputGrid, int width, int height, int nbcc) {
+	public static Grid generateLevel(String outputGrid, int width, int height, int nbcc) {
 		Random random = new Random();
 		Grid grid = new Grid(width, height, nbcc);
 		int nbc = 0;
@@ -98,7 +99,7 @@ public class Generator {
 				grid.setPiece(i/2, j, piece);
 			}
 		}
-		writeGrid(inputGrid, grid);
+		writeGrid(outputGrid, grid);
 		return grid;
 	}
 
@@ -109,19 +110,18 @@ public class Generator {
 	 */
 	public static void writeGrid(String fileName, Grid inputGrid) {
 		try {
-			FileOutputStream fileOutputStream = new FileOutputStream(fileName);
-			FileWriter myWriter = new FileWriter(fileName, false);
-			myWriter.write(inputGrid.getWidth()+"\n");
-			myWriter.write(inputGrid.getHeight()+"\n");
 			Piece[][] pieces = inputGrid.getPieces();
-			for(int i = 0; i < inputGrid.getHeight(); i++) {
-				for (int j = 0; j < inputGrid.getWidth(); j++) {
-					StringBuilder str = new StringBuilder();
-					str.append(Piece.getIntTypeFromPiece(pieces[i][j])+" "+pieces[i][j].getOrientation().getValue()+"\n");
-					myWriter.write(str.toString());
+			File newFile = new File(fileName);
+			newFile.createNewFile();
+			FileWriter writer = new FileWriter(fileName, false);
+			writer.write(inputGrid.getWidth() + "\n");
+			writer.write(inputGrid.getHeight() + "\n");
+			for(int line = 0; line < inputGrid.getHeight(); line++) {
+				for (int column = 0; column < inputGrid.getWidth(); column++) {
+					writer.write(Piece.getIntTypeFromPiece(pieces[line][column]) + " " + pieces[line][column].getOrientation().getValue() + "\n");
 				}
 			}
-			myWriter.close();
+			writer.close();
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
